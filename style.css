@@ -116,6 +116,44 @@ aside:hover p {
     filter: opacity(1)
 } */
 
+
+/* Rate-UP Details */
+
+#rateup {
+    width: 400px;
+    height: 500px;
+    background-color: #2b2d31;
+    position: absolute;
+    border-radius: 0 5px 5px 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.char {
+    max-width: 200px;
+    max-height: 200px;
+    position: absolute;
+}
+
+#char1 {
+    top: 20%;
+}
+
+#char2 {
+    left: 18%;
+}
+
+#char3 {
+    right: 20%;
+}
+
+#event {
+    bottom: 20%;
+}
+
 /* Credits */
 
 footer {
@@ -257,3 +295,4 @@ a:hover {
         filter: opacity(1);
     }
 }
+

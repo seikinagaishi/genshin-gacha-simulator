@@ -19,6 +19,7 @@ const maxPullsForPity       = 89
 const maxPullsFor4Star      = 9
 
 // Selectors
+var bodyElement   = document.querySelector('body')
 let pull1         = document.querySelector('#pull1')
 let pull10        = document.querySelector('#pull10')
 let characterPoll = document.querySelector('#poll')
@@ -92,12 +93,74 @@ var guaranteed4star = 0
 var fiftyFifty5Star = true
 var fiftyFifty4Star = true
 
+// Buttons
 pull1.addEventListener('click', singlePull)
+pull10.addEventListener('click', multiplePulls)
+characterPoll.addEventListener('click', showRatedUP)
 
 function singlePull() {
     let [item, type] = wish()
     animate(item, type)
     refresh()
+}
+
+function multiplePulls() {
+    let wishesResult = []
+    let type = 'purple'
+    
+    for(let i = 0; i < 10; i++) {
+        wishesResult[i] = wish()
+        if(wishesResult[i][1] == 'orange') {
+            type = 'orange'
+        }
+    }
+    animate10(wishesResult, type)
+    refresh()
+}
+
+var rateUPDetails = false
+function showRatedUP() {
+    if(rateUPDetails) {
+        rateUPDetails = false
+        let rateupTab = document.querySelector('#rateup')
+        bodyElement.removeChild(rateupTab)
+    }
+
+    else {
+        rateUPDetails = true
+        let rateupTab = document.createElement('div')
+        rateupTab.id = 'rateup'
+
+        let count = 0
+        let characters = []
+        for(item of purples) {
+            if(count >= 3) {
+                break
+            }
+            if(item[1]) {
+                count++
+                characters.push( item[0].toLowerCase() )
+            }
+        }
+
+        for(index in characters) {
+            let ratedUPCharElement = document.createElement('img')
+            ratedUPCharElement.setAttribute('class', 'char')
+            ratedUPCharElement.id = 'char' + (Number(index) + 1)
+            ratedUPCharElement.src = 'item/' + characters[index] + '.png'
+            
+            rateupTab.appendChild(ratedUPCharElement)
+        }
+
+        let eventCharacterElement = document.createElement('img')
+        eventCharacterElement.setAttribute('class', 'char')
+        eventCharacterElement.id = 'event'        
+        eventCharacterElement.src = 'item/featured.png'
+
+        rateupTab.appendChild(eventCharacterElement)
+
+        bodyElement.appendChild(rateupTab)
+    }
 }
 
 // Animation
@@ -139,6 +202,57 @@ function animate(item, type) {
     // Pull Area Childs
     pullArea.appendChild(h1Element)
     pullArea.appendChild(trailElement)
+}
+
+function animate10(rewards, type) {
+    pullArea.innerHTML = ''
+
+    // Item name
+    let h1Element = document.createElement('h1')
+
+    // Shooting Star Trail
+    let trailElement = document.createElement('div')
+    trailElement.id = 'trail'
+    trailElement.style.animationName = type
+
+    // Shooting Star
+    let starElement = document.createElement('img')
+    starElement.alt = 'Shooting Star'
+    starElement.title = 'Shooting Star'
+    starElement.id = 'star'
+    starElement.src = 'star.png'
+    
+    // Print Item
+    let itemAreaElement = document.createElement('div')
+    itemAreaElement.setAttribute('class', 'item-area')
+
+    let itemElement = document.createElement('img')
+    itemElement.setAttribute('class', 'item')
+    itemAreaElement.appendChild(itemElement)
+
+    // Trail Childs
+    trailElement.appendChild(starElement)
+    trailElement.appendChild(itemAreaElement)
+
+    // Pull Area Childs
+    pullArea.appendChild(h1Element)
+    pullArea.appendChild(trailElement)
+
+    let interval = 0
+    rewards.map((item) => {
+        setTimeout(function() {
+            h1Element.innerText = item[0]
+            let name = item[0].replaceAll(' ', '-').toLowerCase()
+            itemElement.src = 'item/' + name + '.png'
+        }, interval)
+
+        if(item[1] != 'blue') {
+            interval += 1200
+        }
+        else {
+            interval += 600
+        }
+    })
 }
 
 // Log Refresh
@@ -183,9 +297,6 @@ function wish() {
     // random reward based on RNG
     else {
         reward = randomizedReward()
-
-        // log
-        blueAmount++
     }
 
     return randomCharacter(reward)
@@ -220,6 +331,7 @@ function randomizedReward() {
     else {
         pity++
         guaranteed4star++
+        blueAmount++
 
         return 'blue'
     }

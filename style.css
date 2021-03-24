@@ -99,10 +99,6 @@ aside {
 
     padding: 20px;
 }
-/* 
-aside:hover {
-    width: 160px;
-} */
 
 aside p {
     color: white;
@@ -111,10 +107,6 @@ aside p {
     filter: opacity(1);
     transition: 0.3s;
 }
-/* 
-aside:hover p {
-    filter: opacity(1)
-} */
 
 
 /* Rate-UP Details */
@@ -296,3 +288,129 @@ a:hover {
     }
 }
 
+@media screen and (max-width: 1200px) {
+    #rateup {
+        width: 250px;
+        height: 300px;
+    }
+    
+    .char {
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    #char1 {
+        top: 7%;
+    }
+    
+    #char2 {
+        left: 7%;
+    }
+    
+    #char3 {
+        right: 7%;
+    }
+    
+    #event {
+        bottom: 7%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    /* Rate UP Tab */
+    #rateup {
+        width: 100px;
+        height: 200px;
+    }
+    
+    .char {
+        max-width: 70px;
+        max-height: 70px;
+    }
+
+    #char1 {
+        top: 10%;
+    }
+    
+    #char2 {
+        left: 10%;
+    }
+    
+    #char3 {
+        right: 10%;
+    }
+    
+    #event {
+        bottom: 10%;
+    }
+
+    /* Log */
+    aside {
+        width: 120px;
+        height: 175px;
+        padding: 10px;
+    }
+    
+    aside:hover {
+        width: 160px;
+    }
+    
+    aside p {
+        font-size: 11pt;
+        filter: opacity(0);
+        display: none;
+    }
+    
+    aside:hover p {
+        display: block;
+        filter: opacity(1)
+    }
+}
+
+@media screen and (max-width: 600px) {
+    aside {
+        width: 10px;
+        height: 175px;
+        padding: 10px;
+        transition: 0s;
+    }
+
+    aside:hover {
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    /* buttons */
+    #options {
+        margin-top: 15px;
+    }
+    
+    .btn {
+        width: 95px;
+        height: 40px;
+        margin: 10px;
+        font-size: 10pt;
+    }
+
+    /* Pull Area */
+
+    article {
+        top: 0;
+        position: absolute;
+        width: 360px;
+        height: 530px;
+        
+        padding: 5px;
+        padding-top: 20px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .btn {
+        width: 80px;
+        height: 35px;
+        margin: 5px;
+        font-size: 8pt;
+    } 
+}

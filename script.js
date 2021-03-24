@@ -154,12 +154,13 @@ function singlePull() {
         if( !(limit > 0) ) {
             possible = false
         }
+        else {
+            limit--
+            wishRefresh()
+        }
     }
 
     if(possible) {
-        limit--
-        wishRefresh()
-
         let [item, type] = wish()
         animate(item, type)
         refresh()
@@ -173,12 +174,13 @@ function multiplePulls() {
         if( limit < 10 ) {
             possible = false
         }
+        else {
+            limit -= 10
+            wishRefresh()
+        }
     }
 
     if(possible) {
-        limit -= 10
-        wishRefresh()
-
         let wishesResult = []
         let type = 'purple'
         

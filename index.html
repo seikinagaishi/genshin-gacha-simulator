@@ -11,7 +11,32 @@
     </head>
 
     <body>
-        <article>
+        <article id="initial-data">
+            <form>
+                <label for="counter">Wished</label>
+                <input class='input-form' type="number" id="counter" name="counter">
+                <br>
+                
+                <label for="limit">Wish Amount</label>
+                <input class='input-form' type="number" id="limit" name="limit">
+                <br>
+
+                <div class=box>
+                    <h4>50% Chance</h3>
+                    <div class='radio'>
+                        <label>Yes</label>
+                        <input type="radio" name="fift" value='true'>
+                        <br>
+                        <label>No</label>
+                        <input type="radio" name="fift" value='false'>
+                    </div>
+                </div>
+
+                <button id="setup" type="button" class="btn-form">Enviar</button>
+            </form>
+        </article>
+
+        <article id="main">
             <div id="pull">
             </div>
             <div id="options">
@@ -30,7 +55,7 @@
             <br>
             <p>Pity Count - <span id="pity">0</span></p>
             <p>10 Count - <span id="four-starOrBetter">0</span></p>
-            <p>50-50 - <span id="notGuaranteed">Ativo</span></p>
+            <p>50-50 - <span id="notGuaranteed">ON</span></p>
         </aside>
         
         <footer>

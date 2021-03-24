@@ -12,7 +12,69 @@ body {
     justify-content: center;
 }
 
+/* Setup */
+
+#initial-data {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    text-align: right;
+}
+
+#initial-data label {
+    margin-right: 5px;
+}
+
+#initial-data .input-form {
+    margin: 5px;
+    width: 50px;
+    height: 40px;
+    
+    border-radius: 5px;
+    border: none;
+    padding: 0 10px;
+
+    font-weight: bold;
+}
+
+#initial-data h4 {
+    display: inline;
+}
+
+#initial-data .radio {
+    display: inline;
+}
+
+#initial-data .box {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-form {
+    width: 100%;
+    height: 30px;
+    font-weight: bold;
+    
+    border: none;
+    background-color: orange;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-form:hover {
+    background-color: rgb(185, 122, 4);
+    color: white;
+}
+
 /* Pull Area */
+
+#main {
+    display: none;
+}
 
 article {
     width: 500px;
@@ -144,6 +206,38 @@ aside p {
 
 #event {
     bottom: 20%;
+}
+
+/* Wish Amount */
+
+#wishArea {
+    max-width: 75px;
+    height: 30px;
+    background-color: #2b2d31;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: 0 0 0 20px;
+    padding: 5px;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#wishAmount {
+    font-size: 14pt;
+    font-weight: bold;
+    color: white;
+    margin-left: 5px;
+}
+
+#wishImg {
+    width: 40px;
 }
 
 /* Credits */

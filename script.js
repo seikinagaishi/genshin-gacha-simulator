@@ -3,6 +3,7 @@ var blueAmount   = 0
 var purpleAmount = 0
 var orangeAmount = 0
 var count        = 0
+var limit        = false
 
 var wishCount   = document.querySelector('#count')
 var wishOrange  = document.querySelector('#five-star')
@@ -24,6 +25,7 @@ let pull1         = document.querySelector('#pull1')
 let pull10        = document.querySelector('#pull10')
 let characterPoll = document.querySelector('#poll')
 var pullArea      = document.querySelector('#pull')
+let setupBtn      = document.querySelector('#setup')
 
 // Rewards
 var blues = [
@@ -94,28 +96,101 @@ var fiftyFifty5Star = true
 var fiftyFifty4Star = true
 
 // Buttons
+setupBtn.addEventListener('click', setupConfig)
 pull1.addEventListener('click', singlePull)
 pull10.addEventListener('click', multiplePulls)
 characterPoll.addEventListener('click', showRatedUP)
 
-function singlePull() {
-    let [item, type] = wish()
-    animate(item, type)
+function setupConfig() {
+    pity  = Math.round(document.querySelector('#counter').value)
+    if(pity == '' || pity < 0) {
+        pity = 0
+    }
+    else if (pity > 89) {
+        pity = 89
+    }
+
+    // Wishes limit
+    limit = Math.round(document.querySelector('#limit').value)
+    if(limit == '' || limit < 0) {
+        limit = false
+    }
+    else {
+        let wishAreaElement = document.createElement('div')
+        wishAreaElement.id = 'wishArea'
+
+        let wishAmountElement = document.createElement('span')
+        wishAmountElement.id = 'wishAmount'
+        wishAmountElement.innerText = limit
+        
+        let wishImgElement = document.createElement('img')
+        wishImgElement.id = 'wishImg'
+        wishImgElement.src = 'item/wish.png'
+
+        wishAreaElement.appendChild(wishAmountElement)
+        wishAreaElement.appendChild(wishImgElement)
+        bodyElement.appendChild(wishAreaElement)
+    }
+
+    // 50% chance to get the featured character
+    let radioElements = document.getElementsByName('fift')
+    for(element of radioElements) {
+        if(element.checked) {
+            if(element.value == 'false') {
+                fiftyFifty5Star = false
+            }
+        }
+    }
+
+    bodyElement.removeChild(document.querySelector('#initial-data'))
+    document.querySelector('#main').style.display = 'flex'
     refresh()
 }
 
-function multiplePulls() {
-    let wishesResult = []
-    let type = 'purple'
-    
-    for(let i = 0; i < 10; i++) {
-        wishesResult[i] = wish()
-        if(wishesResult[i][1] == 'orange') {
-            type = 'orange'
+function singlePull() {
+    let possible = true
+
+    if(limit !== false) {
+        if( !(limit > 0) ) {
+            possible = false
         }
     }
-    animate10(wishesResult, type)
-    refresh()
+
+    if(possible) {
+        limit--
+        wishRefresh()
+
+        let [item, type] = wish()
+        animate(item, type)
+        refresh()
+    } 
+}
+
+function multiplePulls() {
+    let possible = true
+
+    if(limit !== false) {
+        if( limit < 10 ) {
+            possible = false
+        }
+    }
+
+    if(possible) {
+        limit -= 10
+        wishRefresh()
+
+        let wishesResult = []
+        let type = 'purple'
+        
+        for(let i = 0; i < 10; i++) {
+            wishesResult[i] = wish()
+            if(wishesResult[i][1] == 'orange') {
+                type = 'orange'
+            }
+        }
+        animate10(wishesResult, type)
+        refresh()
+    }
 }
 
 var rateUPDetails = false
@@ -264,6 +339,11 @@ function refresh() {
     wishPity.innerText = pity
     wish10.innerText = guaranteed4star
     fiftyFifty5Star ? wishFifty.innerText = 'ON' : wishFifty.innerText = 'OFF'
+}
+
+function wishRefresh() {
+    let wishAmountElement = document.querySelector('#wishAmount')
+    wishAmountElement.innerText = limit
 }
 
 // Wish System
